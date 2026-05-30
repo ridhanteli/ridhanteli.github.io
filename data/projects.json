@@ -1,0 +1,18 @@
+[
+  {
+    "title": "ESP32 Drone",
+    "category": "Robotics",
+    "status": "In Progress",
+    "date": "2026-08-29",
+    "description": "Developing a telemetry-ready quadcopter using ESP32, sensor fusion, and adaptive flight control.",
+    "images": ["assets/images/drone.jpg"]
+  },
+  {
+    "title": "Personal Website",
+    "category": "Technology",
+    "status": "In Progress",
+    "date": "2026-08-29",
+    "description": "Designing and building a premium site to document projects, progress, and long-term goals.",
+    "images": ["assets/images/website.jpg"]
+  }
+]
