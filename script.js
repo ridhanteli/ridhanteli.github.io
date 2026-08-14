@@ -1,6 +1,7 @@
 const state = {
   projects: [],
   activeCategory: 'All',
+  scrollY: 0,
 };
 
 const elements = {
@@ -11,7 +12,25 @@ const elements = {
   projectFilters: document.getElementById('project-filters'),
   navToggle: document.querySelector('.nav-toggle'),
   navLinks: document.querySelector('.nav-links'),
+  bg: document.querySelector('.bg'),
 };
+
+// Parallax background effect
+window.addEventListener('scroll', () => {
+  state.scrollY = window.scrollY;
+  if (elements.bg) {
+    elements.bg.style.transform = `translateY(${state.scrollY * 0.5}px)`;
+  }
+});
+
+// Mouse parallax effect for background
+document.addEventListener('mousemove', (e) => {
+  if (!elements.bg) return;
+  const x = (e.clientX / window.innerWidth) * 20 - 10;
+  const y = (e.clientY / window.innerHeight) * 20 - 10;
+  elements.bg.style.transition = 'transform 0.3s ease-out';
+  elements.bg.style.transform = `translateY(${state.scrollY * 0.5}px) translate(${x}px, ${y}px)`;
+});
 
 const formatDate = (value) => {
   const date = new Date(value);
@@ -160,6 +179,10 @@ const initRevealObserver = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          // Add staggered animation for multiple elements
+          const siblings = entry.target.parentElement?.querySelectorAll('.reveal.visible') || [];
+          const delay = (siblings.length % 5) * 0.1;
+          entry.target.style.animationDelay = `${delay}s`;
           observer.unobserve(entry.target);
         }
       });
@@ -191,4 +214,100 @@ window.addEventListener('resize', () => {
   }
 });
 
-loadProjects();
+document.querySelectorAll('.nav-links a').forEach((link) => {
+  link.addEventListener('click', closeMobileMenu);
+});
+
+// Enhanced cursor tracking
+const cursor = document.querySelector('.animated-cursor');
+if (cursor) {
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX - 10 + 'px';
+    cursor.style.top = e.clientY - 10 + 'px';
+  });
+}
+
+// Smooth scroll spy for nav links
+window.addEventListener('scroll', () => {
+  const scrollPosition = window.scrollY + 100;
+  document.querySelectorAll('section').forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+      const id = section.getAttribute('id');
+      document.querySelectorAll('.nav-links a').forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${id}`) {
+          link.classList.add('active');
+          link.style.color = '#60a5fa';
+        }
+      });
+    }
+  });
+});
+
+// Section reveal animation with in-view detection
+const observeInView = () => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('section').forEach((section) => observer.observe(section));
+};
+
+// Enhanced loading animation
+const addLoadingEffect = () => {
+  const cards = document.querySelectorAll('.project-card, .journal-entry, .timeline-item, .contact-card');
+  cards.forEach((card, index) => {
+    card.style.opacity = '0';
+    card.style.animation = `scale-in 0.6s ease-out forwards`;
+    card.style.animationDelay = `${index * 0.05}s`;
+  });
+};
+
+// Parallax text effect for headings
+const addHeadingParallax = () => {
+  const headings = document.querySelectorAll('h1, h2, h3');
+  headings.forEach((heading) => {
+    heading.addEventListener('mouseenter', () => {
+      heading.style.letterSpacing = '0.05em';
+    });
+    heading.addEventListener('mouseleave', () => {
+      heading.style.letterSpacing = '';
+    });
+  });
+};
+
+// Add ripple effect on button click
+document.querySelectorAll('.btn').forEach((btn) => {
+  btn.addEventListener('click', function (e) {
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.position = 'absolute';
+    ripple.style.width = size + 'px';
+    ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 255, 255, 0.4)';
+    ripple.style.opacity = '1';
+    ripple.style.pointerEvents = 'none';
+    ripple.style.animation = 'ripple 0.6s ease-out';
+    
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// Initialize all animations
+observeInView();
+addLoadingEffect();
+addHeadingParallax();

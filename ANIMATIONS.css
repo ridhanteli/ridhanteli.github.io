@@ -1,0 +1,164 @@
+/* ANIMATION REFERENCE GUIDE */
+
+/* ============================================
+   KEYFRAME ANIMATIONS AVAILABLE
+   ============================================ */
+
+@keyframes floatbg { /* Floating background drift */ }
+@keyframes shimmer { /* Pulsing opacity shimmer */ }
+@keyframes glow-pulse { /* Blue glow pulse effect */ }
+@keyframes gradient-shift { /* Gradient position shift */ }
+@keyframes float-up { /* Upward float with fade */ }
+@keyframes slide-in-right { /* Slide in from right */ }
+@keyframes scale-in { /* Scale up from center */ }
+@keyframes spin-glow { /* Rotating glow effect */ }
+@keyframes ripple { /* Ripple wave effect */ }
+@keyframes pulse-glow { /* Pulsing glow effect */ }
+@keyframes text-glow { /* Text shadow glow */ }
+
+/* ============================================
+   INTERACTIVE ELEMENTS WITH EFFECTS
+   ============================================ */
+
+// Hover Effects Active On:
+.btn                      // Ripple + lift effect
+.btn-primary              // Blue glow on hover
+.btn-secondary            // Subtle glow effect
+.nav-links a              // Underline animation + glow
+.nav-links a.active       // Blue highlight + underline
+.logo                     // Scale + blue glow
+.snapshot-card            // Lift + border glow + shine sweep
+.snapshot-item            // Scale + lift + glow
+.glass-panel              // Border glow + radial light
+.pill                      // Scale + glow + shine sweep
+.filter-chip              // Glow + lift + active state
+.project-card             // Lift + scale + radial light
+.project-media            // Scale + overlay gradient
+.badge                    // Shimmer continuous + glow on hover
+.journal-entry            // Slide right + left border glow
+.timeline-item            // Slide right + left border glow
+.contact-card             // Lift + scale + radial light
+.contact-icon             // Scale + rotate + glow
+.footer                   // Text color + glow on hover
+
+/* ============================================
+   ANIMATION TIMING & DELAYS
+   ============================================ */
+
+Card Entrance Delays:
+  Project card 1:      0.1s delay
+  Project card 2:      0.2s delay
+  Project card 3:      0.3s delay
+  Project card 4:      0.4s delay
+  Project card 5+:     0.5s delay
+
+Snapshot Grid Items:     0.3s - 0.45s (staggered)
+Journal Entries:         0.1s - 0.3s (staggered)
+Timeline Items:          0.1s - 0.3s (staggered)
+Contact Cards:           0.1s - 0.3s (staggered)
+Navigation Menu Items:   0.05s - 0.25s (staggered)
+
+/* ============================================
+   PARALLAX EFFECTS
+   ============================================ */
+
+Background Parallax:     50% of scroll speed (translateY)
+Mouse Parallax:          ±20px based on cursor position
+Scroll Spy:              Auto-highlights nav as you scroll
+
+/* ============================================
+   COLOR & GLOW PALETTE
+   ============================================ */
+
+Primary Blue:            #60a5fa
+Box Glow:                0 0 40px rgba(96, 165, 250, 0.5)
+Text Glow:               0 0 20px rgba(96, 165, 250, 0.5)
+Purple Accent:           #a855f7
+Surface Glow:            0 0 30px rgba(96, 165, 250, 0.3)
+
+/* ============================================
+   EASING FUNCTIONS USED
+   ============================================ */
+
+Smooth Transitions:      ease, ease-out
+Bouncy Elements:         cubic-bezier(0.34, 1.56, 0.64, 1)
+Default Timing:          0.2s - 0.3s for interactions
+Section Animations:      0.8s entrance
+Background Movement:     0.3s - 0.5s response time
+
+/* ============================================
+   BROWSER OPTIMIZATIONS
+   ============================================ */
+
+✓ Hardware Accelerated:  transform, opacity only
+✓ No Layout Thrashing:   Optimized observers
+✓ Touch Device Support:  Cursor disabled on touch
+✓ Performance:           60fps smooth animations
+✓ Mobile Friendly:       Reduced complexity on mobile
+
+/* ============================================
+   CLASS SELECTORS FOR STYLING
+   ============================================ */
+
+.reveal              // Elements with entrance animation
+.reveal.visible      // Triggered when in viewport
+.in-view             // Section visible state
+.active              // Active navigation link
+.open                // Expanded mobile menu
+.animated-cursor     // Custom cursor element
+
+/* ============================================
+   PSEUDO-ELEMENTS USED
+   ============================================ */
+
+::before  - Shine sweeps, gradient overlays, borders
+::after   - Glow effects, overlay gradients, visual depth
+
+/* ============================================
+   RECOMMENDED TIMING FOR NEW ELEMENTS
+   ============================================ */
+
+Entrance animations:     0.6s - 0.8s
+Hover transitions:       0.2s - 0.3s
+Background effects:      18s - 22s (continuous)
+Menu animations:         0.25s - 0.3s
+Button ripple:           0.6s
+Scroll animations:       smooth (CSS)
+
+/* ============================================
+   FUTURE ENHANCEMENT IDEAS
+   ============================================ */
+
+✓ Video backgrounds (assets/video/background.mp4)
+✓ Video in project cards (add "video" field to JSON)
+✓ 3D transforms on scroll
+✓ Particle effects on hover
+✓ Canvas-based animations
+✓ SVG morphing animations
+✓ Sound effects on interactions
+✓ Confetti/celebration effects
+✓ Loading skeleton screens
+✓ Dark/light theme toggle
+
+/* ============================================
+   CUSTOMIZATION POINTS
+   ============================================ */
+
+To adjust animation intensity:
+  - Modify keyframe distances
+  - Change --glow-blue shadow values
+  - Adjust easing functions
+  - Increase/decrease delays
+  - Modify transform scales
+
+To change animation colors:
+  - Update --blue and --blue-strong variables
+  - Modify gradient colors in keyframes
+  - Change glow shadow rgba values
+  - Update linear-gradient colors
+
+To speed up/slow down:
+  - Modify animation duration (e.g., 6s → 4s)
+  - Adjust transition times
+  - Change delay values
+  - Modify cubic-bezier curves
