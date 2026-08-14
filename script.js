@@ -174,23 +174,8 @@ const renderJournal = () => {
 };
 
 const initRevealObserver = () => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          // Add staggered animation for multiple elements
-          const siblings = entry.target.parentElement?.querySelectorAll('.reveal.visible') || [];
-          const delay = (siblings.length % 5) * 0.1;
-          entry.target.style.animationDelay = `${delay}s`;
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+  // Reveal animations disabled - all elements visible by default
+  return;
 };
 
 const closeMobileMenu = () => {
