@@ -75,9 +75,8 @@ a {
   100% { background-position: 0% 50%; }
 }
 @keyframes float-up {
-  0% { transform: translateY(0px); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(-20px); }
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 @keyframes slide-in-right {
   from { transform: translateX(100px); opacity: 0; }
@@ -772,7 +771,6 @@ a {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
-  animation: float-up 0.8s ease-out;
 }
 @media (max-width: 900px) {
   .hero {
@@ -891,7 +889,7 @@ a {
   transform: translate(-50%, -50%);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (min-width: 721px) {
   .animated-cursor {
     display: block;
   }
