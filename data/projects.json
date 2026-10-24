@@ -1,18 +1,121 @@
 [
   {
-    "title": "ESP32 Drone",
-    "category": "Robotics",
-    "status": "In Progress",
-    "date": "2026-08-29",
-    "description": "Developing a telemetry-ready quadcopter using ESP32, sensor fusion, and adaptive flight control.",
-    "images": ["assets/images/drone.jpg"]
+    "id": "esp32-drone",
+    "title": "ESP32 Quadcopter",
+    "category": "Robotics & Hardware",
+    "status": "Flight Testing",
+    "date": "2026-10-15",
+    "badge": "Flight Tested",
+    "description": "Custom quadcopter powered by an ESP32. Tuned PID rate loops, 6-axis IMU sensor fusion, and 3D printed arm dampeners.",
+    "icon": "drone",
+    "tags": ["ESP32", "PID Tuning", "CAD", "C++"],
+    "specs": {
+      "MCU": "ESP32 Dual-Core (240MHz)",
+      "Sensors": "MPU6050 Gyro + Accel",
+      "Motors": "2205 2300KV BLDC",
+      "Weight": "385g AUW"
+    },
+    "bom": [
+      "ESP32 DevKit V1",
+      "MPU6050 6-DOF IMU",
+      "4x 2205 Motors + 30A ESCs",
+      "Custom 3D Printed PETG Hub"
+    ],
+    "notes": "Tuned roll/pitch PID loops. Stable hover achieved."
   },
   {
-    "title": "Personal Website",
-    "category": "Technology",
-    "status": "In Progress",
-    "date": "2026-08-29",
-    "description": "Designing and building a premium site to document projects, progress, and long-term goals.",
-    "images": ["assets/images/website.jpg"]
+    "id": "autonomous-rover",
+    "title": "Autonomous Rover",
+    "category": "Robotics & Hardware",
+    "status": "Operational",
+    "date": "2026-07-20",
+    "badge": "Hardware",
+    "description": "Differential-drive robot with dual ultrasonic and laser Time-of-Flight sensors for indoor obstacle navigation.",
+    "icon": "bot",
+    "tags": ["Arduino", "Sensors", "Robotics"],
+    "specs": {
+      "Controller": "Arduino Nano",
+      "Sensors": "VL53L0X ToF + HC-SR04",
+      "Power": "Dual 18650 Li-Ion",
+      "Drive": "Dual DC Gearmotors"
+    },
+    "bom": [
+      "Arduino Nano",
+      "VL53L0X Laser Sensor",
+      "L298N Motor Driver",
+      "Laser-cut acrylic chassis"
+    ],
+    "notes": "State machine navigation with 25cm edge detection."
+  },
+  {
+    "id": "wind-tunnel-rig",
+    "title": "Desktop Aerofoil Rig",
+    "category": "Aero & Fabrication",
+    "status": "Prototyping",
+    "date": "2026-05-12",
+    "badge": "Experimental",
+    "description": "Miniature test chamber using ultrasonic mist to visualize boundary layer airflow and stall angles over 3D printed wings.",
+    "icon": "wind",
+    "tags": ["Aerodynamics", "3D Printing", "Flow Viz"],
+    "specs": {
+      "Chamber": "Clear Acrylic (400mm)",
+      "Airflow": "Dual 120mm PWM Fans",
+      "Vaporizer": "Ultrasonic Mist Nozzle",
+      "Airfoils": "NACA 0012 & Clark-Y"
+    },
+    "bom": [
+      "Clear Acrylic Panels",
+      "High static pressure 12V fans",
+      "Ultrasonic mist generator"
+    ],
+    "notes": "Laminar flow straightener allows clear stall angle observation."
+  },
+  {
+    "id": "iot-desk-station",
+    "title": "IoT Workbench Node",
+    "category": "Electronics & IoT",
+    "status": "Operational",
+    "date": "2026-03-08",
+    "badge": "24/7 Live",
+    "description": "Compact desktop monitor logging temperature, humidity, pressure, and solder fume air quality to an OLED display.",
+    "icon": "cpu",
+    "tags": ["ESP8266", "BME280", "OLED", "IoT"],
+    "specs": {
+      "MCU": "NodeMCU ESP8266",
+      "Sensors": "BME280 + MQ-135",
+      "Display": "0.96\" I2C OLED",
+      "Power": "USB-C 5V"
+    },
+    "bom": [
+      "NodeMCU ESP8266",
+      "Bosch BME280 Sensor",
+      "MQ-135 Gas Sensor",
+      "SSD1306 OLED Display"
+    ],
+    "notes": "Automatically triggers exhaust fan when solder fumes are detected."
+  },
+  {
+    "id": "portfolio-workbench",
+    "title": "Cyber Portfolio & HUD",
+    "category": "Software",
+    "status": "Active",
+    "date": "2026-10-24",
+    "badge": "Live Site",
+    "description": "Personal site built with high-blur glassmorphism, 2D particle canvas, Web Audio synthesizer, and the Ridhan Console.",
+    "icon": "code",
+    "tags": ["JavaScript", "Canvas", "Web Audio", "Glass UI"],
+    "specs": {
+      "Tech": "Vanilla JS, CSS3, HTML5",
+      "Visuals": "Canvas Particle Matrix",
+      "Audio": "Web Audio API Oscillator",
+      "Console": "Secure Presenter Stash"
+    },
+    "bom": [
+      "Procedural Canvas Particle Web",
+      "Web Audio Sound FX Engine",
+      "Interactive Terminal CLI",
+      "Ridhan Presenter Console"
+    ],
+    "notes": "Fast, responsive, zero external framework bloat."
   }
 ]

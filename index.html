@@ -3,156 +3,820 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ridhan Teli | Aerospace Enthusiast & Builder</title>
-  <meta name="description" content="Portfolio of Ridhan Teli — aerospace enthusiast, builder, and future entrepreneur.">
-  <meta name="theme-color" content="#06111b">
+  <title>Ridhan Teli | I build things.</title>
+  <meta name="description" content="Portfolio of Ridhan Teli — student, hardware builder, and tinkerer. Custom ESP32 drones, robotics, and electronics.">
+  <meta name="theme-color" content="#030712">
+
+  <!-- Google Fonts: Space Grotesk, Outfit, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="bg"></div>
-  <div class="animated-cursor"></div>
+<body data-theme="cyan">
+  <!-- Interactive WebGL / Canvas Background -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-  <header class="page-shell">
-    <nav class="nav" aria-label="Primary navigation">
-      <div class="nav-brand">
-        <span class="logo">RT</span>
-        <span class="brand-name">Ridhan Teli</span>
+  <!-- Ambient Undulating Mesh Orbs -->
+  <div class="ambient-mesh" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+    <div class="ambient-orb orb-4"></div>
+  </div>
+
+  <!-- Cyber Grid and Scanline Overlay -->
+  <div class="cyber-grid" aria-hidden="true"></div>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Custom Magnetic Cursor Elements -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Top Telemetry HUD Status Bar -->
+  <aside class="hud-topbar" aria-label="Workbench Telemetry Status">
+    <div class="hud-item sys-status">
+      <span class="hud-led"></span>
+      <span class="hud-label">BENCH:</span>
+      <span id="hud-status-text" class="hud-val">ONLINE // ACTIVE</span>
+    </div>
+    <div class="hud-item hud-clock-item">
+      <span class="hud-icon">⏱</span>
+      <span class="hud-label">LOCAL:</span>
+      <span id="hud-clock" class="hud-val">--:--:-- IST</span>
+    </div>
+    <div class="hud-item hud-coords">
+      <span class="hud-label">BASE:</span>
+      <span class="hud-val">Bangalore, IN</span>
+    </div>
+    <div class="hud-controls">
+      <!-- Theme Switcher -->
+      <div class="theme-picker" title="Change Theme Accent">
+        <button class="theme-btn active" data-set-theme="cyan" aria-label="Cyan theme"></button>
+        <button class="theme-btn" data-set-theme="purple" aria-label="Purple theme"></button>
+        <button class="theme-btn" data-set-theme="emerald" aria-label="Emerald theme"></button>
+        <button class="theme-btn" data-set-theme="amber" aria-label="Amber theme"></button>
       </div>
 
-      <button class="nav-toggle" aria-expanded="false" aria-label="Open navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
+      <!-- Sound FX Toggle -->
+      <button id="sound-toggle" class="hud-btn" aria-label="Toggle Sci-Fi Sound FX" title="Toggle UI Sound Effects">
+        <span class="sound-wave">
+          <span></span><span></span><span></span>
+        </span>
+        <span id="sound-label">FX: OFF</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="page-shell">
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#hero" class="nav-brand" aria-label="Ridhan Teli Home">
+        <div class="logo-box">
+          <span class="logo-text">RT</span>
+          <span class="logo-glow"></span>
+        </div>
+        <div class="brand-info">
+          <span class="brand-name">Ridhan Teli</span>
+          <span class="brand-sub">Student &amp; Maker</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </button>
 
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#journal">Journal</a>
-        <a href="#timeline">Timeline</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" class="nav-link"><span class="nav-num">01.</span> About</a>
+        <a href="#projects" class="nav-link"><span class="nav-num">02.</span> Projects</a>
+        <a href="#terminal-section" class="nav-link"><span class="nav-num">03.</span> CLI</a>
+        <a href="#skills" class="nav-link"><span class="nav-num">04.</span> Stack</a>
+        <a href="#contact" class="nav-link"><span class="nav-num">05.</span> Contact</a>
+        <a href="#contact" class="btn btn-primary btn-nav-cta">Say Hello</a>
       </div>
     </nav>
-
-    <section class="hero">
-      <div class="hero-copy reveal">
-        <p class="eyebrow">Aerospace · Robotics · Future ventures</p>
-        <h1>Hi, I'm Ridhan Teli.</h1>
-        <p class="hero-copy__text">Aerospace Enthusiast • Builder • Future Entrepreneur</p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">Explore Projects</a>
-          <a href="#contact" class="btn btn-secondary">Contact Me</a>
-        </div>
-      </div>
-
-      <div class="hero-snapshot reveal">
-        <div class="snapshot-card">
-          <p class="snapshot-label">Current focus</p>
-          <h2>Project systems, flight hardware, and mission design.</h2>
-        </div>
-
-        <div class="snapshot-grid">
-          <div class="snapshot-item">Student</div>
-          <div class="snapshot-item">Aerospace</div>
-          <div class="snapshot-item">Builder</div>
-          <div class="snapshot-item">Entrepreneur</div>
-        </div>
-      </div>
-    </section>
   </header>
 
   <main>
-    <section id="about" class="section glass-panel reveal">
-      <div class="section-heading">
-        <span class="section-tag">About</span>
-        <h2>Student, engineer, and explorer of systems that fly.</h2>
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-content">
+        <div class="hero-eyebrow-container reveal">
+          <div class="cyber-badge">
+            <span class="badge-dot"></span>
+            <span>STUDENT · TINKERER · ROBOTICS</span>
+          </div>
+        </div>
+
+        <!-- 3-Word Headline exactly as requested -->
+        <h1 class="hero-title reveal">
+          <span class="gradient-text text-glow">I build things.</span>
+        </h1>
+
+        <p class="hero-subtext reveal">
+          Hey, I'm <strong class="highlight-text">Ridhan Teli</strong>. Student and maker from Bangalore. I experiment with hardware, custom quadcopters, microcontrollers, and code.
+        </p>
+
+        <div class="hero-actions reveal">
+          <a href="#projects" class="btn btn-primary btn-glow">
+            <span>Explore Builds</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <button id="hero-terminal-btn" class="btn btn-secondary">
+            <span class="btn-icon">⚡</span>
+            <span>Open Terminal</span>
+          </button>
+          <a href="#contact" class="btn btn-glass">
+            <span>Get in Touch</span>
+          </a>
+        </div>
+
+        <!-- Hero Highlights Row -->
+        <div class="hero-metrics-grid reveal">
+          <div class="metric-card glass-panel-card">
+            <div class="metric-top">
+              <span class="metric-icon">🛸</span>
+              <span class="metric-tag">HARDWARE</span>
+            </div>
+            <div class="metric-val">ESP32 Drone</div>
+            <div class="metric-desc">Tuned PID rate control</div>
+          </div>
+
+          <div class="metric-card glass-panel-card">
+            <div class="metric-top">
+              <span class="metric-icon">⚙️</span>
+              <span class="metric-tag">STACK</span>
+            </div>
+            <div class="metric-val">C++ &amp; Sensors</div>
+            <div class="metric-desc">IMU fusion &amp; 3D prints</div>
+          </div>
+
+          <div class="metric-card glass-panel-card">
+            <div class="metric-top">
+              <span class="metric-icon">📍</span>
+              <span class="metric-tag">LOCATION</span>
+            </div>
+            <div class="metric-val">Bangalore, IN</div>
+            <div class="metric-desc">Workbench &amp; testing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Interactive Hologram Cockpit Card -->
+      <div class="hero-visual reveal">
+        <div class="cockpit-card glass-panel tilt-card" id="hero-cockpit">
+          <div class="cockpit-header">
+            <div class="cockpit-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="cockpit-title">TELEMETRY_HUD // BENCH</span>
+            <span class="cockpit-badge">LIVE 60FPS</span>
+          </div>
+
+          <div class="radar-display">
+            <div class="radar-circle circle-1"></div>
+            <div class="radar-circle circle-2"></div>
+            <div class="radar-circle circle-3"></div>
+            <div class="radar-crosshair-h"></div>
+            <div class="radar-crosshair-v"></div>
+            <div class="radar-sweep"></div>
+            <div class="radar-target target-drone" title="ESP32 Quadcopter">
+              <span class="target-ping"></span>
+              <span class="target-label">QUAD_01</span>
+            </div>
+            <div class="radar-target target-rover" title="Obstacle Rover">
+              <span class="target-ping"></span>
+              <span class="target-label">ROVER_02</span>
+            </div>
+          </div>
+
+          <div class="cockpit-telemetry-feed">
+            <div class="feed-row">
+              <span class="feed-label">CORE MCU:</span>
+              <span class="feed-val accent">ESP32 240MHz</span>
+            </div>
+            <div class="feed-row">
+              <span class="feed-label">IMU SENSOR:</span>
+              <span class="feed-val green">MPU6050 400Hz</span>
+            </div>
+            <div class="feed-row">
+              <span class="feed-label">RADIO LINK:</span>
+              <span class="feed-val accent">2.4GHz TELEMETRY OK</span>
+            </div>
+          </div>
+
+          <div class="cockpit-footer">
+            <div class="cockpit-stat">
+              <span class="c-num">5</span>
+              <span class="c-text">Builds</span>
+            </div>
+            <div class="cockpit-stat">
+              <span class="c-num">385g</span>
+              <span class="c-text">Drone AUW</span>
+            </div>
+            <div class="cockpit-stat">
+              <span class="c-num">100%</span>
+              <span class="c-text">Hands-On</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KINETIC SCROLLING MARQUEE -->
+    <div class="kinetic-ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>I BUILD THINGS</span><span class="ticker-dot">•</span>
+        <span>ESP32 &amp; ARDUINO</span><span class="ticker-dot">•</span>
+        <span>ROBOTICS</span><span class="ticker-dot">•</span>
+        <span>3D PRINTING</span><span class="ticker-dot">•</span>
+        <span>EMBEDDED C++</span><span class="ticker-dot">•</span>
+        <span>SENSORS &amp; IMU</span><span class="ticker-dot">•</span>
+        <span>I BUILD THINGS</span><span class="ticker-dot">•</span>
+        <span>ESP32 &amp; ARDUINO</span><span class="ticker-dot">•</span>
+        <span>ROBOTICS</span><span class="ticker-dot">•</span>
+        <span>3D PRINTING</span><span class="ticker-dot">•</span>
+        <span>EMBEDDED C++</span><span class="ticker-dot">•</span>
+        <span>SENSORS &amp; IMU</span><span class="ticker-dot">•</span>
+      </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section glass-section">
+      <div class="section-header reveal">
+        <div class="section-tag-box">
+          <span class="section-tag-dot"></span>
+          <span class="section-tag">01 // ABOUT ME</span>
+        </div>
+        <h2 class="section-heading">Student, tinkerer, and maker.</h2>
       </div>
 
       <div class="about-grid">
-        <div class="about-copy">
-          <p>I am a student and builder focused on aerospace, aviation, robotics, and technology. I document each step of my work and design every project to be practical, dependable, and ready for the next milestone.</p>
-          <p>My work is grounded in hands-on systems, clean engineering, and a long-term mindset. I build with purpose and share progress from the workshop to the flight envelope.</p>
+        <div class="about-card glass-panel tilt-card reveal">
+          <div class="card-glow-reflection"></div>
+          <h3 class="about-title">Hey, I'm Ridhan.</h3>
+          <p class="about-text">
+            I'm a student who likes building things that move, fly, or calculate.
+          </p>
+          <p class="about-text">
+            No corporate jargon or buzzwords here — just real hands-on tinkering: tuning PID loops on custom quadcopters, wiring microcontrollers, 3D printing brackets, and writing embedded code to connect everything.
+          </p>
+
+          <div class="about-pills-container">
+            <span class="about-pill">Quadcopter Builder</span>
+            <span class="about-pill">ESP32 &amp; Arduino</span>
+            <span class="about-pill">Sensors &amp; IMU</span>
+            <span class="about-pill">3D Printing</span>
+            <span class="about-pill">Embedded C++</span>
+            <span class="about-pill">Python &amp; Web</span>
+          </div>
         </div>
 
-        <div class="about-list">
-          <div class="pill">Aerospace enthusiast</div>
-          <div class="pill">Aviation enthusiast</div>
-          <div class="pill">Technology builder</div>
-          <div class="pill">Systems thinker</div>
-          <div class="pill">Student leader</div>
-          <div class="pill">Future entrepreneur</div>
+        <div class="about-stats-panel glass-panel reveal">
+          <h3 class="stats-heading">Workbench Rules</h3>
+
+          <div class="principle-item">
+            <div class="principle-num">01</div>
+            <div class="principle-info">
+              <h4>Build It From Scratch</h4>
+              <p>Learn how each sensor, register, and wire works firsthand.</p>
+            </div>
+          </div>
+
+          <div class="principle-item">
+            <div class="principle-num">02</div>
+            <div class="principle-info">
+              <h4>Embrace The Crashes</h4>
+              <p>Every broken propeller or compile error teaches you what textbooks can't.</p>
+            </div>
+          </div>
+
+          <div class="principle-item">
+            <div class="principle-num">03</div>
+            <div class="principle-info">
+              <h4>Keep It Simple</h4>
+              <p>Clean wiring, reliable firmware, and practical hardware.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section glass-panel reveal">
-      <div class="section-heading">
-        <span class="section-tag">Projects</span>
-        <h2>Work that is built to scale and improve over time.</h2>
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section glass-section">
+      <div class="section-header reveal">
+        <div class="section-tag-box">
+          <span class="section-tag-dot"></span>
+          <span class="section-tag">02 // PROJECTS</span>
+        </div>
+        <h2 class="section-heading">Things I've Built.</h2>
       </div>
 
-      <div class="project-toolbar">
-        <div class="project-summary">Showing <span id="project-count">0</span> projects</div>
-        <div class="project-filters" id="project-filters" role="tablist" aria-label="Project categories"></div>
+      <!-- Project Filter Toolbar -->
+      <div class="project-toolbar reveal">
+        <div class="project-counter">
+          <span class="pulse-indicator"></span>
+          <span>Showing <strong id="project-count" class="accent-number">0</strong> builds</span>
+        </div>
+        <div class="project-filter-chips" id="project-filters" role="tablist" aria-label="Project Categories">
+          <!-- Dynamic Category Filters -->
+        </div>
       </div>
 
-      <div id="projects-container" class="projects-grid"></div>
+      <!-- Projects Grid Container -->
+      <div id="projects-container" class="projects-grid">
+        <!-- Rendered dynamically by script.js -->
+      </div>
     </section>
 
-    <section id="journal" class="section glass-panel reveal">
-      <div class="section-heading">
-        <span class="section-tag">Journal</span>
-        <h2>Automatic updates generated from project progress.</h2>
+    <!-- INTERACTIVE TERMINAL SECTION -->
+    <section id="terminal-section" class="section glass-section">
+      <div class="section-header reveal">
+        <div class="section-tag-box">
+          <span class="section-tag-dot"></span>
+          <span class="section-tag">03 // INTERACTIVE CLI</span>
+        </div>
+        <h2 class="section-heading">Workbench Terminal</h2>
       </div>
 
-      <div id="journal-container" class="journal-list"></div>
+      <div class="terminal-container glass-panel reveal">
+        <div class="terminal-top">
+          <div class="terminal-buttons">
+            <span class="t-btn t-close"></span>
+            <span class="t-btn t-min"></span>
+            <span class="t-btn t-max"></span>
+          </div>
+          <div class="terminal-title">
+            <span class="terminal-icon">❯_</span> ridhan@workbench: ~ (bash)
+          </div>
+          <div class="terminal-session-status">CONNECTED // 240MHz</div>
+        </div>
+
+        <!-- Quick Command Shortcuts -->
+        <div class="terminal-quick-chips">
+          <span class="quick-label">Commands:</span>
+          <button class="cmd-chip" data-cmd="help">help</button>
+          <button class="cmd-chip" data-cmd="projects">projects</button>
+          <button class="cmd-chip" data-cmd="drone">drone</button>
+          <button class="cmd-chip" data-cmd="skills">skills</button>
+          <button class="cmd-chip" data-cmd="theme">theme</button>
+          <button class="cmd-chip" data-cmd="contact">contact</button>
+          <button class="cmd-chip" data-cmd="clear">clear</button>
+        </div>
+
+        <div class="terminal-body" id="terminal-body">
+          <div class="terminal-line text-muted">
+            Ridhan Workbench OS v2.5. Type <span class="cmd-highlight">help</span> or click command chips.
+          </div>
+        </div>
+
+        <div class="terminal-prompt-bar">
+          <span class="prompt-user">ridhan@teli</span>
+          <span class="prompt-separator">:</span>
+          <span class="prompt-path">~</span>
+          <span class="prompt-symbol">$</span>
+          <input type="text" id="terminal-input" class="terminal-input" placeholder="Type a command (e.g. help, projects, drone)..." autocomplete="off" spellcheck="false">
+          <button id="terminal-send" class="terminal-send-btn" aria-label="Run command">RUN</button>
+        </div>
+      </div>
     </section>
 
-    <section id="timeline" class="section glass-panel reveal">
-      <div class="section-heading">
-        <span class="section-tag">Timeline</span>
-        <h2>Project milestones and recent work.</h2>
+    <!-- TECH STACK & TOOLBELT SECTION -->
+    <section id="skills" class="section glass-section">
+      <div class="section-header reveal">
+        <div class="section-tag-box">
+          <span class="section-tag-dot"></span>
+          <span class="section-tag">04 // TECH STACK</span>
+        </div>
+        <h2 class="section-heading">Tools &amp; Tech.</h2>
       </div>
 
-      <div id="timeline-container" class="timeline-list"></div>
+      <div class="skills-grid">
+        <!-- Hardware Card -->
+        <div class="skill-category-card glass-panel tilt-card reveal">
+          <div class="category-icon-box">⚡</div>
+          <h3 class="category-title">Hardware &amp; Silicon</h3>
+          <ul class="skill-items-list">
+            <li>
+              <div class="skill-header"><span>ESP32 Dual-Core (240MHz)</span><span class="skill-pct">92%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 92%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Arduino &amp; STM32 Basics</span><span class="skill-pct">85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Sensors (MPU6050, ToF)</span><span class="skill-pct">88%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>BLDC Motors &amp; ESCs</span><span class="skill-pct">82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 82%;"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Software Card -->
+        <div class="skill-category-card glass-panel tilt-card reveal">
+          <div class="category-icon-box">💻</div>
+          <h3 class="category-title">Software &amp; Firmware</h3>
+          <ul class="skill-items-list">
+            <li>
+              <div class="skill-header"><span>C / C++ (Embedded)</span><span class="skill-pct">86%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 86%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Python (Scripts &amp; Data)</span><span class="skill-pct">82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 82%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>JavaScript / Web</span><span class="skill-pct">85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Git &amp; GitHub</span><span class="skill-pct">88%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Fabrication & Lab Card -->
+        <div class="skill-category-card glass-panel tilt-card reveal">
+          <div class="category-icon-box">🛠️</div>
+          <h3 class="category-title">Fabrication &amp; Lab</h3>
+          <ul class="skill-items-list">
+            <li>
+              <div class="skill-header"><span>3D Printing (PETG/PLA)</span><span class="skill-pct">94%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 94%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Fusion 360 CAD</span><span class="skill-pct">80%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Soldering &amp; Wiring</span><span class="skill-pct">90%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Multimeter &amp; Debugging</span><span class="skill-pct">85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Robotics & Flight Card -->
+        <div class="skill-category-card glass-panel tilt-card reveal">
+          <div class="category-icon-box">🛸</div>
+          <h3 class="category-title">Robotics &amp; Flight</h3>
+          <ul class="skill-items-list">
+            <li>
+              <div class="skill-header"><span>PID Rate &amp; Angle Loops</span><span class="skill-pct">85%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>IMU Sensor Fusion</span><span class="skill-pct">82%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 82%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Motor Dynamics</span><span class="skill-pct">80%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div>
+            </li>
+            <li>
+              <div class="skill-header"><span>Radio Telemetry</span><span class="skill-pct">84%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="width: 84%;"></div></div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <section id="contact" class="section glass-panel reveal">
-      <div class="section-heading">
-        <span class="section-tag">Contact</span>
-        <h2>Ready to connect on aerospace, robotics, and long-term work.</h2>
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section glass-section">
+      <div class="section-header reveal">
+        <div class="section-tag-box">
+          <span class="section-tag-dot"></span>
+          <span class="section-tag">05 // CONTACT</span>
+        </div>
+        <h2 class="section-heading">Get in Touch.</h2>
       </div>
 
       <div class="contact-grid">
-        <a href="mailto:ridhanteli@gmail.com" class="contact-card" rel="noopener">
-          <span class="contact-icon">📧</span>
-          <div>
-            <p>Email</p>
-            <strong>ridhanteli@gmail.com</strong>
+        <!-- Phone (Updated to 9620640630) -->
+        <div class="contact-card glass-panel tilt-card reveal">
+          <div class="contact-icon-box">📱</div>
+          <div class="contact-details">
+            <span class="contact-label">Phone / WhatsApp</span>
+            <strong class="contact-value" id="val-phone">+91 9620640630</strong>
           </div>
-        </a>
+          <div class="contact-actions">
+            <a href="tel:+919620640630" class="btn btn-primary btn-sm">Call</a>
+            <button class="btn btn-secondary btn-sm copy-btn" data-copy="+919620640630">Copy</button>
+          </div>
+        </div>
 
-        <a href="tel:+919206245025" class="contact-card" rel="noopener">
-          <span class="contact-icon">📱</span>
-          <div>
-            <p>Phone</p>
-            <strong>9206245025</strong>
+        <!-- Email -->
+        <div class="contact-card glass-panel tilt-card reveal">
+          <div class="contact-icon-box">📧</div>
+          <div class="contact-details">
+            <span class="contact-label">Email</span>
+            <strong class="contact-value" id="val-email">ridhanteli@gmail.com</strong>
           </div>
-        </a>
+          <div class="contact-actions">
+            <a href="mailto:ridhanteli@gmail.com" class="btn btn-primary btn-sm">Email</a>
+            <button class="btn btn-secondary btn-sm copy-btn" data-copy="ridhanteli@gmail.com">Copy</button>
+          </div>
+        </div>
 
-        <a href="https://instagram.com/ridhanteli" target="_blank" class="contact-card" rel="noopener">
-          <span class="contact-icon">📸</span>
-          <div>
-            <p>Instagram</p>
-            <strong>@ridhanteli</strong>
+        <!-- Instagram -->
+        <div class="contact-card glass-panel tilt-card reveal">
+          <div class="contact-icon-box">📸</div>
+          <div class="contact-details">
+            <span class="contact-label">Instagram</span>
+            <strong class="contact-value">@ridhanteli</strong>
           </div>
-        </a>
+          <div class="contact-actions">
+            <a href="https://instagram.com/ridhanteli" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Profile</a>
+            <button class="btn btn-secondary btn-sm copy-btn" data-copy="@ridhanteli">Copy</button>
+          </div>
+        </div>
+
+        <!-- GitHub -->
+        <div class="contact-card glass-panel tilt-card reveal">
+          <div class="contact-icon-box">🐙</div>
+          <div class="contact-details">
+            <span class="contact-label">GitHub</span>
+            <strong class="contact-value">ridhanteli</strong>
+          </div>
+          <div class="contact-actions">
+            <a href="https://github.com/ridhanteli" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">GitHub</a>
+            <button class="btn btn-secondary btn-sm copy-btn" data-copy="https://github.com/ridhanteli">Copy</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- Interactive Project Modal Dialog -->
+  <dialog id="project-modal" class="project-modal-dialog">
+    <div class="modal-card glass-panel">
+      <div class="modal-header">
+        <div class="modal-tag-group">
+          <span class="badge" id="modal-category">Robotics</span>
+          <span class="badge status" id="modal-status">Flight Testing</span>
+          <span class="badge date" id="modal-date">Oct 15, 2026</span>
+        </div>
+        <button id="modal-close" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <h2 id="modal-title" class="modal-title">Project Title</h2>
+        <p id="modal-desc" class="modal-description">Project description goes here...</p>
+
+        <!-- Tabs -->
+        <div class="modal-tabs">
+          <button class="modal-tab-btn active" data-tab="tab-specs">Specs</button>
+          <button class="modal-tab-btn" data-tab="tab-bom">BOM</button>
+          <button class="modal-tab-btn" data-tab="tab-notes">Notes</button>
+        </div>
+
+        <div class="tab-content active" id="tab-specs">
+          <div class="specs-grid" id="modal-specs-container"></div>
+        </div>
+
+        <div class="tab-content" id="tab-bom">
+          <ul class="bom-list" id="modal-bom-container"></ul>
+        </div>
+
+        <div class="tab-content" id="tab-notes">
+          <div class="notes-box" id="modal-notes-container"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-tags" id="modal-tags-container"></div>
+        <button class="btn btn-secondary btn-sm" id="modal-dismiss-btn">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- =========================================================================
+       RIDHAN CONSOLE MODAL DIALOG (Secure Presentation & Stash Vault)
+       Username: ridhanteli | Password: Inkitel#1981
+       ========================================================================= -->
+  <dialog id="ridhan-console-modal" class="console-modal-dialog">
+    <div class="console-card glass-panel">
+      
+      <!-- Console Header -->
+      <div class="console-header">
+        <div class="console-brand">
+          <span class="console-led"></span>
+          <span class="console-title">RIDHAN CONSOLE // WORKBENCH V2.5</span>
+        </div>
+        <button id="console-close-btn" class="modal-close-btn" aria-label="Close console">&times;</button>
+      </div>
+
+      <!-- VIEW 1: LOGIN SCREEN -->
+      <div id="console-login-view" class="console-view">
+        <div class="login-box">
+          <div class="login-icon">🔒</div>
+          <h3>Workbench Authentication</h3>
+          <p class="login-sub">Enter credentials to unlock presentation controls &amp; asset vault.</p>
+
+          <form id="console-login-form" class="console-form">
+            <div class="form-group">
+              <label for="console-user">USERNAME</label>
+              <input type="text" id="console-user" class="console-input" placeholder="ridhanteli" autocomplete="username" required>
+            </div>
+
+            <div class="form-group">
+              <label for="console-pass">PASSWORD</label>
+              <input type="password" id="console-pass" class="console-input" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+
+            <div id="console-auth-error" class="console-error-msg" style="display: none;">
+              ⚠ Invalid credentials. Access denied.
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              <span>AUTHENTICATE</span>
+              <span>❯</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- VIEW 2: AUTHENTICATED DASHBOARD -->
+      <div id="console-auth-view" class="console-view" style="display: none;">
+        <div class="console-dashboard-top">
+          <div class="user-status-pill">
+            <span class="user-dot"></span>
+            <span>LOGGED IN: <strong>ridhanteli</strong></span>
+          </div>
+          <div class="dashboard-actions">
+            <button id="console-pitch-mode-btn" class="btn btn-glass btn-sm">🎬 Pitch Mode: OFF</button>
+            <button id="console-logout-btn" class="btn btn-secondary btn-sm">Lock Console</button>
+          </div>
+        </div>
+
+        <!-- Console Tabs -->
+        <div class="console-nav-tabs">
+          <button class="c-tab-btn active" data-ctab="ctab-stash">📁 Presenter Stash (<span id="stash-count">0</span>)</button>
+          <button class="c-tab-btn" data-ctab="ctab-add">➕ Add File / Link / Note</button>
+          <button class="c-tab-btn" data-ctab="ctab-controls">⚙️ Site Controls</button>
+        </div>
+
+        <!-- TAB 1: Presenter Stash Vault -->
+        <div class="c-tab-content active" id="ctab-stash">
+          <div class="stash-toolbar">
+            <p class="stash-desc">Quick-access presentation items for pitching to mentors, judges, or friends.</p>
+            <button id="clear-stash-btn" class="btn btn-glass btn-sm text-danger">Clear Stash</button>
+          </div>
+          <div id="stash-items-grid" class="stash-grid">
+            <!-- Dynamically populated from localStorage -->
+          </div>
+        </div>
+
+        <!-- TAB 2: Add New Item to Stash -->
+        <div class="c-tab-content" id="ctab-add">
+          <form id="add-stash-form" class="console-add-form">
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="stash-title">ITEM TITLE</label>
+                <input type="text" id="stash-title" class="console-input" placeholder="e.g. Flight Video, CAD Model, Repo Link..." required>
+              </div>
+              <div class="form-group flex-1">
+                <label for="stash-type">TYPE</label>
+                <select id="stash-type" class="console-input">
+                  <option value="link">🔗 Web Link / Repo</option>
+                  <option value="image">🖼 Image / Diagram</option>
+                  <option value="note">📝 Text Note / Talking Point</option>
+                  <option value="file">📂 Local File Upload</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- URL or Content Input -->
+            <div class="form-group" id="group-url">
+              <label for="stash-url" id="label-stash-url">LINK URL OR CONTENT</label>
+              <input type="text" id="stash-url" class="console-input" placeholder="https://..." required>
+            </div>
+
+            <!-- File Upload Input (Conditional) -->
+            <div class="form-group" id="group-file" style="display: none;">
+              <label for="stash-file-input">UPLOAD FILE / IMAGE FROM DEVICE</label>
+              <input type="file" id="stash-file-input" class="console-input file-input" accept="image/*,.pdf,.txt,.json">
+              <small class="form-hint">Files are saved locally in your browser storage.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="stash-desc">BRIEF DESCRIPTION / PRESENTATION NOTE</label>
+              <textarea id="stash-desc" class="console-input console-textarea" rows="2" placeholder="Key talking points or context for this item..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              <span>Save to Presenter Stash</span>
+              <span>💾</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- TAB 3: Site Controls -->
+        <div class="c-tab-content" id="ctab-controls">
+          <div class="controls-panel">
+            <div class="control-row">
+              <div class="control-info">
+                <h4>Workbench Status Text</h4>
+                <p>Change the live telemetry status shown in the top HUD.</p>
+              </div>
+              <div class="control-input-group">
+                <input type="text" id="ctrl-status-input" class="console-input" placeholder="ONLINE // PRESENTING">
+                <button id="ctrl-status-save" class="btn btn-secondary btn-sm">Update HUD</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-info">
+                <h4>Theme Overdrive</h4>
+                <p>Instantly switch website accent colors.</p>
+              </div>
+              <div class="control-btn-group">
+                <button class="btn btn-sm btn-glass ctrl-theme-btn" data-theme="cyan">Cyan</button>
+                <button class="btn btn-sm btn-glass ctrl-theme-btn" data-theme="purple">Purple</button>
+                <button class="btn btn-sm btn-glass ctrl-theme-btn" data-theme="emerald">Emerald</button>
+                <button class="btn btn-sm btn-glass ctrl-theme-btn" data-theme="amber">Amber</button>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-info">
+                <h4>Web Audio FX Synthesizer</h4>
+                <p>Trigger sound test and toggle FX state.</p>
+              </div>
+              <div class="control-btn-group">
+                <button id="ctrl-test-sound" class="btn btn-secondary btn-sm">Play Test Sound 🔊</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Presentation Fullscreen Viewer Modal -->
+  <dialog id="presentation-viewer-modal" class="viewer-modal-dialog">
+    <div class="viewer-card glass-panel">
+      <div class="viewer-header">
+        <h3 id="viewer-title" class="viewer-title">Presentation Item</h3>
+        <button id="viewer-close-btn" class="modal-close-btn">&times;</button>
+      </div>
+      <div id="viewer-body" class="viewer-body"></div>
+    </div>
+  </dialog>
+
+  <!-- Floating Quick-Action HUD Dock -->
+  <aside class="floating-dock" aria-label="Quick Actions Dock">
+    <button id="dock-terminal-btn" class="dock-btn" title="Toggle Terminal" aria-label="Toggle Terminal">
+      <span>❯_</span>
+    </button>
+    <button id="dock-sound-btn" class="dock-btn" title="Toggle Sound FX" aria-label="Toggle Sound">
+      <span>🔊</span>
+    </button>
+    <button id="dock-theme-btn" class="dock-btn" title="Cycle Theme" aria-label="Cycle Theme">
+      <span>🎨</span>
+    </button>
+    <button id="dock-top-btn" class="dock-btn" title="Scroll to Top" aria-label="Scroll to Top">
+      <span>↑</span>
+    </button>
+  </aside>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- FOOTER WITH RIDHAN CONSOLE BUTTON AT FULL BOTTOM -->
   <footer class="footer">
-    <p>© 2026 Ridhan Teli</p>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">RT</span>
+        <p>Built with hands-on effort by Ridhan Teli · 2026</p>
+      </div>
+      <p class="footer-tagline">Crafted with Canvas 2D, Web Audio API, and Pure CSS Glass.</p>
+
+      <!-- RIDHAN CONSOLE BUTTON (Full bottom of the page) -->
+      <div class="footer-console-row">
+        <button id="open-console-btn" class="btn btn-console" aria-label="Open Ridhan Console">
+          <span class="console-lock">🔒</span>
+          <span class="console-btn-text">RIDHAN CONSOLE</span>
+          <span class="console-indicator"></span>
+        </button>
+      </div>
+    </div>
   </footer>
 
   <script src="script.js"></script>
